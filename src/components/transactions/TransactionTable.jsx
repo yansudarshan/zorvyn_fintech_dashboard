@@ -170,9 +170,11 @@ export const TransactionTable = ({ onOpenModal, onEditTransaction }) => {
 
 
                     <div className="flex items-center gap-4 relative z-20 pl-2">
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-transform group-hover:scale-110 duration-300 ${isIncome ? 'bg-gradient-to-br from-fintech-emerald/20 to-green-500/5 text-fintech-emerald border border-fintech-emerald/20' : 'bg-gradient-to-br from-red-500/20 to-red-500/5 text-red-500 border border-red-500/20'}`}>
-                        {isIncome ? <TrendingUp size={20} strokeWidth={2.5} /> : <TrendingDown size={20} strokeWidth={2.5} />}
-                      </div>
+                      {role !== 'Admin' && (
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 shadow-sm transition-transform group-hover:scale-110 duration-300 ${isIncome ? 'bg-gradient-to-br from-fintech-emerald/20 to-green-500/5 text-fintech-emerald border border-fintech-emerald/20' : 'bg-gradient-to-br from-red-500/20 to-red-500/5 text-red-500 border border-red-500/20'}`}>
+                          {isIncome ? <TrendingUp size={20} strokeWidth={2.5} /> : <TrendingDown size={20} strokeWidth={2.5} />}
+                        </div>
+                      )}
                       
                       <div className="flex flex-col">
                         <h4 className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base mb-1 tracking-tight leading-tight">{tx.description}</h4>
@@ -186,22 +188,22 @@ export const TransactionTable = ({ onOpenModal, onEditTransaction }) => {
                     </div>
 
 
-                    <div className="flex items-center gap-5 relative z-20">
+                    <div className={`flex items-center gap-3 sm:gap-5 relative z-20 ${role === 'Admin' ? 'w-full justify-between mt-1 sm:w-auto sm:mt-0 sm:justify-end' : ''}`}>
                       
-                      <div className="text-right flex flex-col justify-center">
+                      <div className={`text-right flex flex-col justify-center ${role === 'Admin' ? 'text-left sm:text-right' : ''}`}>
                         <span className={`block font-bold tabular-nums tracking-tight text-base sm:text-lg drop-shadow-sm transition-transform group-hover:scale-105 origin-right duration-300 leading-tight ${isIncome ? 'text-fintech-emerald' : 'text-red-500 dark:text-red-400'}`}>
                           {isIncome ? '+' : '-'}₹{tx.amount.toFixed(2)}
                         </span>
                         
-                        <span className="text-[10px] sm:text-[11px] text-gray-400 dark:text-gray-500 font-bold tracking-widest uppercase mt-1 block leading-none">{isIncome ? 'Credit' : 'Debit'}</span>
+                        <span className={`text-[10px] sm:text-[11px] text-gray-400 dark:text-gray-500 font-bold tracking-widest uppercase mt-1 block leading-none ${role === 'Admin' ? 'text-left sm:text-right' : ''}`}>{isIncome ? 'Credit' : 'Debit'}</span>
                       </div>
 
 
                       {role === 'Admin' && (
-                        <div className="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:-translate-x-2 sm:group-hover:translate-x-0 transition-all duration-300">
+                        <div className="flex flex-row items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:-translate-x-2 sm:group-hover:translate-x-0 transition-all duration-300 shrink-0">
                           {/* edit and delete commands */}
-                          <button onClick={() => onEditTransaction(tx)} className="p-2 text-gray-400 hover:text-fintech-accent bg-white/80 dark:bg-white/10 hover:bg-white hover:dark:bg-white/20 rounded-xl transition-all shadow-sm border border-gray-200 dark:border-white/10 hover:border-fintech-accent/50"><Edit2 size={16} /></button>
-                          <button onClick={() => deleteTransaction(tx.id)} className="p-2 text-gray-400 hover:text-red-500 bg-white/80 dark:bg-white/10 hover:bg-white hover:dark:bg-white/20 rounded-xl transition-all shadow-sm border border-gray-200 dark:border-white/10 hover:border-red-500/50"><Trash2 size={16} /></button>
+                          <button onClick={() => onEditTransaction(tx)} className="p-2 sm:p-2.5 text-gray-400 hover:text-fintech-accent bg-white/80 dark:bg-white/10 hover:bg-white hover:dark:bg-white/20 rounded-xl sm:rounded-xl transition-all shadow-sm border border-gray-200 dark:border-white/10 hover:border-fintech-accent/50"><Edit2 size={16} className="sm:w-[18px] sm:h-[18px]" /></button>
+                          <button onClick={() => deleteTransaction(tx.id)} className="p-2 sm:p-2.5 text-gray-400 hover:text-red-500 bg-white/80 dark:bg-white/10 hover:bg-white hover:dark:bg-white/20 rounded-xl sm:rounded-xl transition-all shadow-sm border border-gray-200 dark:border-white/10 hover:border-red-500/50"><Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" /></button>
                         </div>
                       )}
                       

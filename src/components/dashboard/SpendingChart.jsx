@@ -26,7 +26,7 @@ const renderActiveShape = (props) => {
   const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props;
   
   return (
-    <g>
+    <g style={{ outline: 'none' }}>
       <Sector
         cx={cx}
         cy={cy}
@@ -35,7 +35,8 @@ const renderActiveShape = (props) => {
         startAngle={startAngle}
         endAngle={endAngle}
         fill={fill}
-        className="transition-all duration-300"
+        className="transition-all duration-300 outline-none focus:outline-none"
+        style={{ outline: 'none' }}
       />
     </g>
   );
@@ -117,8 +118,8 @@ export const SpendingChart = () => {
         </AnimatePresence>
       </div>
 
-      <div className="w-full h-[300px] pt-4 mt-8">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="w-full h-[300px] pt-4 mt-8" style={{ WebkitTapHighlightColor: 'transparent', outline: 'none' }}>
+        <ResponsiveContainer width="100%" height="100%" className="outline-none focus:outline-none">
           
           <PieChart>
             <defs>
@@ -150,8 +151,8 @@ export const SpendingChart = () => {
                 <Cell 
                   key={`cell-${index}`} 
                   fill={COLORS[index % COLORS.length]} 
-                  className="cursor-pointer outline-none transition-opacity duration-300"
-                  style={{ opacity: activeIndex === null || activeIndex === index ? 1 : 0.4 }}
+                  className="cursor-pointer outline-none focus:outline-none transition-opacity duration-300"
+                  style={{ opacity: activeIndex === null || activeIndex === index ? 1 : 0.4, outline: 'none' }}
                 />
               ))}
             </Pie>
