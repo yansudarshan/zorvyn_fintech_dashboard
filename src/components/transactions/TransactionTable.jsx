@@ -159,7 +159,7 @@ export const TransactionTable = ({ onOpenModal, onEditTransaction }) => {
                       delay: Math.min(idx * 0.05, 0.3),
                       whileHover: { type: "spring", stiffness: 400, damping: 25 }
                     }}
-                    className={`shrink-0 flex items-center justify-between py-4 px-4 sm:py-5 sm:px-5 rounded-xl bg-white/60 dark:bg-white/5 border hover:shadow-xl transition-all duration-300 group relative overflow-hidden backdrop-blur-md ${isIncome ? 'border-fintech-emerald/20 dark:border-fintech-emerald/10' : 'border-red-500/20 dark:border-red-500/10'}`}
+                    className={`shrink-0 flex justify-between py-4 px-4 sm:py-5 sm:px-5 rounded-xl bg-white/60 dark:bg-white/5 border hover:shadow-xl transition-all duration-300 group relative overflow-hidden backdrop-blur-md ${isIncome ? 'border-fintech-emerald/20 dark:border-fintech-emerald/10' : 'border-red-500/20 dark:border-red-500/10'} ${role === 'Admin' ? 'flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-0' : 'flex-row items-center gap-0'}`}
                   >
                     
                     {/* vibrant background glow on hover */}
@@ -188,25 +188,21 @@ export const TransactionTable = ({ onOpenModal, onEditTransaction }) => {
                     </div>
 
 
-                    <div className={`flex items-center gap-3 sm:gap-5 relative z-20 ${role === 'Admin' ? 'w-full justify-between mt-1 sm:w-auto sm:mt-0 sm:justify-end' : ''}`}>
-                      
-                      <div className={`text-right flex flex-col justify-center ${role === 'Admin' ? 'text-left sm:text-right' : ''}`}>
-                        <span className={`block font-bold tabular-nums tracking-tight text-base sm:text-lg drop-shadow-sm transition-transform group-hover:scale-105 origin-right duration-300 leading-tight ${isIncome ? 'text-fintech-emerald' : 'text-red-500 dark:text-red-400'}`}>
+                    <div className={`flex items-center relative z-20 ${role === 'Admin' ? 'w-full sm:w-auto justify-between sm:justify-end gap-0 sm:gap-5 border-t border-gray-200/60 dark:border-white/10 sm:border-none pt-3 sm:pt-0' : 'gap-5'}`}>
+                      <div className={`flex flex-col justify-center ${role === 'Admin' ? 'text-left sm:text-right' : 'text-right'}`}>
+                        <span className={`block font-bold tabular-nums tracking-tight text-lg sm:text-xl drop-shadow-sm transition-transform group-hover:scale-105 duration-300 leading-tight ${role === 'Admin' ? 'origin-left sm:origin-right' : 'origin-right'} ${isIncome ? 'text-fintech-emerald' : 'text-red-500 dark:text-red-400'}`}>
                           {isIncome ? '+' : '-'}₹{tx.amount.toFixed(2)}
                         </span>
-                        
-                        <span className={`text-[10px] sm:text-[11px] text-gray-400 dark:text-gray-500 font-bold tracking-widest uppercase mt-1 block leading-none ${role === 'Admin' ? 'text-left sm:text-right' : ''}`}>{isIncome ? 'Credit' : 'Debit'}</span>
+                        <span className={`text-[10px] sm:text-[11px] text-gray-400 dark:text-gray-500 font-bold tracking-widest uppercase mt-0.5 sm:mt-1 block leading-none`}>{isIncome ? 'Credit' : 'Debit'}</span>
                       </div>
-
 
                       {role === 'Admin' && (
                         <div className="flex flex-row items-center gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:-translate-x-2 sm:group-hover:translate-x-0 transition-all duration-300 shrink-0">
                           {/* edit and delete commands */}
-                          <button onClick={() => onEditTransaction(tx)} className="p-2 sm:p-2.5 text-gray-400 hover:text-fintech-accent bg-white/80 dark:bg-white/10 hover:bg-white hover:dark:bg-white/20 rounded-xl sm:rounded-xl transition-all shadow-sm border border-gray-200 dark:border-white/10 hover:border-fintech-accent/50"><Edit2 size={16} className="sm:w-[18px] sm:h-[18px]" /></button>
-                          <button onClick={() => deleteTransaction(tx.id)} className="p-2 sm:p-2.5 text-gray-400 hover:text-red-500 bg-white/80 dark:bg-white/10 hover:bg-white hover:dark:bg-white/20 rounded-xl sm:rounded-xl transition-all shadow-sm border border-gray-200 dark:border-white/10 hover:border-red-500/50"><Trash2 size={16} className="sm:w-[18px] sm:h-[18px]" /></button>
+                          <button onClick={() => onEditTransaction(tx)} className="flex items-center justify-center gap-1.5 px-3 py-1.5 sm:p-2.5 text-gray-600 dark:text-gray-300 hover:text-fintech-accent bg-gray-100/80 dark:bg-white/5 hover:bg-white hover:dark:bg-white/20 rounded-lg sm:rounded-xl transition-all shadow-sm border border-gray-200/50 dark:border-white/5 hover:border-fintech-accent/50 text-xs font-bold uppercase tracking-wider"><Edit2 size={14} className="sm:w-[18px] sm:h-[18px]" /><span className="sm:hidden">Edit</span></button>
+                          <button onClick={() => deleteTransaction(tx.id)} className="flex items-center justify-center gap-1.5 px-3 py-1.5 sm:p-2.5 text-gray-600 dark:text-gray-300 hover:text-red-500 bg-gray-100/80 dark:bg-white/5 hover:bg-white hover:dark:bg-white/20 rounded-lg sm:rounded-xl transition-all shadow-sm border border-gray-200/50 dark:border-white/5 hover:border-red-500/50 text-xs font-bold uppercase tracking-wider"><Trash2 size={14} className="sm:w-[18px] sm:h-[18px]" /><span className="sm:hidden">Delete</span></button>
                         </div>
                       )}
-                      
                     </div>
                   </motion.div>
                 );
