@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { useStore } from '../../store/useStore';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -53,6 +53,13 @@ const CustomTooltip = ({ active, payload, label }) => {
 export const BalanceChart = () => {
   
   const transactions = useStore(state => state.transactions);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // calculate map data points
   const data = useMemo(() => {
@@ -96,7 +103,12 @@ export const BalanceChart = () => {
             <XAxis dataKey="date" tick={{ fill: '#888', fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} minTickGap={30} />
             <YAxis tick={{ fill: '#888', fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} tickFormatter={(v) => `₹${v}`} />
             
-            <Tooltip content={<CustomTooltip />} isAnimationActive={false} cursor={{ stroke: '#0EA5E9', strokeWidth: 1, strokeDasharray: '4 4', opacity: 0.4 }} />
+            <Tooltip 
+              content={<CustomTooltip />} 
+              isAnimationActive={false} 
+              cursor={{ stroke: '#0EA5E9', strokeWidth: 1, strokeDasharray: '4 4', opacity: 0.4 }} 
+              wrapperStyle={{ display: isMobile ? 'none' : 'block', WebkitTapHighlightColor: 'transparent', outline: 'none' }}
+            />
             <Area
               type="monotone"
               dataKey="balance"
