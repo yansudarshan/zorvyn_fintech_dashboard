@@ -20,27 +20,7 @@ const AnimatedCounter = ({ value }) => {
 };
 
 
-// helper mapping to draw outline for pie slices
-const renderActiveShape = (props) => {
-  
-  const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } = props;
-  
-  return (
-    <g style={{ outline: 'none' }}>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius + 8}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={fill}
-        className="transition-all duration-300 outline-none focus:outline-none"
-        style={{ outline: 'none' }}
-      />
-    </g>
-  );
-};
+
 
 
 // a small hovering card when pie chart piece selected
@@ -140,7 +120,27 @@ export const SpendingChart = () => {
               stroke="none"
               animationDuration={1500}
               activeIndex={activeIndex}
-              activeShape={renderActiveShape}
+              activeShape={(props) => {
+                const isActive = activeIndex === props.index;
+                return (
+                  <g style={{ outline: 'none' }}>
+                    <Sector
+                      cx={props.cx}
+                      cy={props.cy}
+                      innerRadius={props.innerRadius}
+                      outerRadius={isActive ? props.outerRadius + 8 : props.outerRadius}
+                      startAngle={props.startAngle}
+                      endAngle={props.endAngle}
+                      fill={props.fill}
+                      className="transition-all duration-300 outline-none focus:outline-none"
+                      style={{ 
+                        outline: 'none',
+                        opacity: activeIndex === null || isActive ? 1 : 0.4
+                      }}
+                    />
+                  </g>
+                );
+              }}
               onMouseEnter={(_, index) => {
                 if (window.innerWidth > 768) {
                   setActiveIndex(index);
@@ -151,8 +151,12 @@ export const SpendingChart = () => {
                   setActiveIndex(null);
                 }
               }}
-              onClick={(_, index) => {
-                setActiveIndex(index);
+              onClick={(data, index) => {
+                if (window.innerWidth <= 768 && activeIndex === index) {
+                  setActiveIndex(null);
+                } else {
+                  setActiveIndex(index);
+                }
               }}
               className="drop-shadow-xl"
               style={{ filter: document.documentElement.classList.contains('dark') ? 'url(#glowPieShadowDark)' : 'url(#glowPieShadow)' }}
