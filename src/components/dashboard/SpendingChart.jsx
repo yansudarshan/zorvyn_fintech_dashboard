@@ -54,31 +54,29 @@ const ActiveBox = ({ data, color }) => {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: -10, scale: 0.95 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-2xl rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-gray-200/50 dark:border-white/10 flex items-center gap-3 sm:gap-4 origin-top-right min-w-[200px]" 
+      className="bg-white/90 dark:bg-slate-800/90 sm:bg-white/95 sm:dark:bg-slate-900/95 backdrop-blur-md shadow-lg sm:shadow-2xl rounded-lg sm:rounded-2xl px-3 py-2 sm:p-4 border border-gray-200/50 dark:border-white/10 flex items-center gap-2 sm:gap-4 origin-top-right w-auto sm:min-w-[200px]" 
     >
-      
       <div 
-        className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-white shadow-md relative overflow-hidden shrink-0"
+        className="w-3 h-3 sm:w-10 sm:h-10 rounded-full flex items-center justify-center sm:text-white shadow-sm sm:shadow-md relative overflow-hidden shrink-0"
         style={{ backgroundColor: color }}
       >
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", delay: 0.1, stiffness: 300 }}
+          className="hidden sm:block"
         >
           <IndianRupee size={18} strokeWidth={2.5} className="sm:w-5 sm:h-5" />
         </motion.div>
       </div>
-      
-      <div>
-        <p className="font-bold text-gray-500 dark:text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider mb-0.5">
+      <div className="flex sm:flex-col items-center sm:items-start gap-2 sm:gap-0">
+        <p className="font-semibold sm:font-bold text-gray-700 dark:text-gray-300 sm:text-gray-500 sm:dark:text-gray-400 text-[11px] sm:text-xs uppercase tracking-wider m-0 sm:mb-0.5">
           {data.name}
         </p>
-        <p className="font-extrabold text-lg sm:text-2xl text-gray-900 dark:text-white leading-none flex items-center">
+        <p className="font-bold sm:font-extrabold text-sm sm:text-2xl text-gray-900 dark:text-white leading-none flex items-center m-0">
           ₹<AnimatedCounter value={data.value} />
         </p>
       </div>
-
     </motion.div>
   );
 };

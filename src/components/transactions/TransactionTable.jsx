@@ -69,9 +69,10 @@ export const TransactionTable = ({ onOpenModal, onEditTransaction }) => {
               />
             </div>
             
-            <Button variant="secondary" className="md:hidden w-full justify-start h-[42px]">
-              <Calendar size={18} className="text-gray-400" /> Select date range
-            </Button>
+            <div className="md:hidden w-full relative">
+              <Calendar size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10" />
+              <Input type="date" className="pl-10 h-[42px] w-full text-gray-500 appearance-none bg-white/50 dark:bg-white/5 cursor-pointer" />
+            </div>
 
             {/* selects for filtering mapping categories */}
             <div className="flex gap-3 w-full md:w-auto shrink-0 overflow-x-auto pb-1 mt-1 md:pb-0 md:mt-0 no-scrollbar">
@@ -117,9 +118,10 @@ export const TransactionTable = ({ onOpenModal, onEditTransaction }) => {
 
 
         <div className="hidden md:flex justify-between items-center gap-2 mb-2 w-full mt-2">
-          <Button variant="secondary" className="justify-start h-[36px] text-xs px-3 py-1 bg-white/40 border border-white/20">
-            <Calendar size={14} className="text-gray-400 mr-1" /> Select date range
-          </Button>
+          <div className="relative">
+            <Calendar size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none z-10" />
+            <Input type="date" className="pl-8 h-[36px] text-xs py-1 bg-white/40 border border-white/20 text-gray-500 appearance-none cursor-pointer w-44" />
+          </div>
           
           <div className="flex items-center gap-2">
             <Button variant="secondary" className="px-3 py-1.5 text-sm">
@@ -157,7 +159,7 @@ export const TransactionTable = ({ onOpenModal, onEditTransaction }) => {
                       delay: Math.min(idx * 0.05, 0.3),
                       whileHover: { type: "spring", stiffness: 400, damping: 25 }
                     }}
-                    className={`flex items-center justify-between py-4 px-4 sm:py-5 sm:px-5 rounded-xl bg-white/60 dark:bg-white/5 border hover:shadow-xl transition-all duration-300 group relative overflow-hidden backdrop-blur-md ${isIncome ? 'border-fintech-emerald/20 dark:border-fintech-emerald/10' : 'border-red-500/20 dark:border-red-500/10'}`}
+                    className={`shrink-0 flex items-center justify-between py-4 px-4 sm:py-5 sm:px-5 rounded-xl bg-white/60 dark:bg-white/5 border hover:shadow-xl transition-all duration-300 group relative overflow-hidden backdrop-blur-md ${isIncome ? 'border-fintech-emerald/20 dark:border-fintech-emerald/10' : 'border-red-500/20 dark:border-red-500/10'}`}
                   >
                     
                     {/* vibrant background glow on hover */}

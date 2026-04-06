@@ -26,7 +26,7 @@ Ensure you have Node.js installed to run this project locally.
 `1.` **Navigate to the Project Directory**
 Ensure you are in the root directory of the project:
 ```bash
-cd Zorvyn
+cd Zorvyn_Fintech_Dashboard
 ```
 
 `2.` **Install Dependencies**
