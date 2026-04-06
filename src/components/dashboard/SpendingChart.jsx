@@ -141,8 +141,19 @@ export const SpendingChart = () => {
               animationDuration={1500}
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
-              onMouseEnter={(_, index) => setActiveIndex(index)}
-              onMouseLeave={() => setActiveIndex(null)}
+              onMouseEnter={(_, index) => {
+                if (window.innerWidth > 768) {
+                  setActiveIndex(index);
+                }
+              }}
+              onMouseLeave={() => {
+                if (window.innerWidth > 768) {
+                  setActiveIndex(null);
+                }
+              }}
+              onClick={(_, index) => {
+                setActiveIndex(index);
+              }}
               className="drop-shadow-xl"
               style={{ filter: document.documentElement.classList.contains('dark') ? 'url(#glowPieShadowDark)' : 'url(#glowPieShadow)' }}
             >
